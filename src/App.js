@@ -1,10 +1,11 @@
+import React from 'react';
+import Covid19 from './components/Covid19'
 
-import './App.css';
 
 function App() {
   return (
     <div className="App">
-     map()
+    <Covid19/>
     </div>
   );
 }
