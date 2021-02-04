@@ -1,21 +1,31 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup,  } from 'react-leaflet'
-import "leaflet/dist/leaflet.css"; 
-
-
+import React from "react";
+import { Map, GeoJSON } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import "./CovidMap.css";
 const CovidMap = ({ countries }) => {
-    console.log(countries)
-    return ( <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </MapContainer>);
-}
- 
+  const mapStyle = {
+    fillColor: "white",
+    weight: 1,
+    color: "green",
+    fillOpacity: 1,
+  };
+
+  const onEachCountry = (country, layer) => {
+    layer.options.fillColor = country.properties.color;
+    const name = country.properties.ADMIN;
+    const confirmedText = country.properties.confirmedText;
+    layer.bindPopup(`${name} ${confirmedText}`);
+  };
+
+  return (
+    <Map style={{ height: "90vh" }} zoom={2} center={[20, 60]}>
+      <GeoJSON
+        style={mapStyle}
+        data={countries}
+        onEachFeature={onEachCountry}
+      />
+    </Map>
+  );
+};
+
 export default CovidMap;

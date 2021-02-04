@@ -4,7 +4,7 @@ class LoadCountriesTask{
 
 
 
-    laod=(setState)=>{
+    load=(setState)=>{
         setState(features)
     }
 }
